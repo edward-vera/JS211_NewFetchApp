@@ -1,32 +1,40 @@
-const fetch = require('node-fetch');
-const { getHeapSpaceStatistics } = require('v8');
 
-const url = 'api link needed here'
-
+// calls function on page load
 window.onload = function() {
-
-    getSomething();
+    getBreweries();
 }
 
-require('dotenv').config();
+// this function fetches the breweries
+const getBreweries = () => {
+    const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'cb85153293msh4e4af2f7a4897f2p146609jsn3b83daa74b08',
+		'X-RapidAPI-Host': 'brianiswu-open-brewery-db-v1.p.rapidapi.com'
+	    }
+    }
 
-// console.log(process.env)
+    fetch('https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
+    console.log(getBreweries)
+    // console.log(options)
 
-const api_key = process.env.SECRET_API_KEY
+    fetch('https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries?by_state=NY&by_name=cooper&by_type=micro&by_tag=patio', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
 
-const api_public = process.env.SECRET_PUBLIC_KEY
+    fetch('https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries/autocomplete?query=dog', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
 
-const ts = new Date().getTime
+    fetch('https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries/search?query=dog', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
 
-console.log(api_key)
-console.log(api_public)
 
-window.onload = function() {
-
-    getSomething();
-}
-
-const fetchStuff = () => {
-    // do the fetch
-}
-console.log(fetchStuff)
+};
